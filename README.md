@@ -1,5 +1,5 @@
-# fusionauth-password-encryptor-example
+## Example Password Encryptor 
 
-A template you can use to build a Password Encryptor Plugin for FusionAuth
+If you need to write a custom encryptor to import users into FusionAuth, you may use this example build. This is intended to be used with the Writing a Plugin guide provided in the FusionAuth documentation. 
 
-See the Writing a Plugin guide here https://fusionauth.io/docs/v1/tech/plugins/writing-a-plugin
+Writing a Plugin guide is found here:  https://fusionauth.io/docs/v1/tech/plugins/writing-a-plugin
