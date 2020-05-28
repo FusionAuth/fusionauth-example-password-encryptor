@@ -27,6 +27,12 @@ import io.fusionauth.plugin.spi.security.PasswordEncryptor;
  *   hash = (salt + password).getBytes()
  * </pre>
  *
+ * <pre>
+ * This code is provided to assist in your deployment and management of FusionAuth. Use of this
+ * software is not covered under the FusionAuth license agreement and is provided "as is" without
+ * warranty. https://fusionauth.io/license
+ * </pre>
+ *
  * @author Daniel DeGroff
  */
 public class ExampleCustomMD5SaltedEncryptor implements PasswordEncryptor {

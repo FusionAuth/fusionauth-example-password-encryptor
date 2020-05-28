@@ -4,6 +4,9 @@ If you need to write a custom encryptor to import users into FusionAuth, you may
 
 Writing a Plugin guide is found here:  https://fusionauth.io/docs/v1/tech/plugins/writing-a-plugin
 
+### Example code
+
+Any example password encryptors provided in this repository is provided to assist in your deployment and management of FusionAuth. Use of this software is not covered under the FusionAuth license agreement and is provided "as is" without warranty. https://fusionauth.io/license
 
 ### Building
 
