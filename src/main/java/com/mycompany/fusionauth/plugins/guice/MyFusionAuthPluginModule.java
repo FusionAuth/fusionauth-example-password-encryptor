@@ -18,6 +18,7 @@ package com.mycompany.fusionauth.plugins.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedEncryptor;
+import com.mycompany.fusionauth.plugins.ExampleSaltedSHA512PasswordEncryptor;
 import com.mycompany.fusionauth.plugins.MyExamplePasswordEncryptor;
 import io.fusionauth.plugin.spi.PluginModule;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
@@ -37,5 +38,6 @@ public class MyFusionAuthPluginModule extends AbstractModule {
     //   3. Delete any example code you don't use.
     passwordEncryptorMapBinder.addBinding("example-hash").to(MyExamplePasswordEncryptor.class);
     passwordEncryptorMapBinder.addBinding("example-custom-md5").to(ExampleCustomMD5SaltedEncryptor.class);
+    passwordEncryptorMapBinder.addBinding("example-salted-sha512").to(ExampleSaltedSHA512PasswordEncryptor.class);
   }
 }
