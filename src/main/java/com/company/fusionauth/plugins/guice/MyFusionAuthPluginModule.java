@@ -1,5 +1,6 @@
 package com.company.fusionauth.plugins.guice;
 
+import com.company.fusionauth.plugins.CustomMD5SaltedEncryptor;
 import com.company.fusionauth.plugins.MyExamplePasswordEncryptor;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
@@ -19,5 +20,6 @@ public class MyFusionAuthPluginModule extends AbstractModule {
     //   1. Add one or more bindings here
     //   2. Name your binding. This will be the value you set in the 'encryptionScheme' on the user to utilize this encryptor.
     passwordEncryptorMapBinder.addBinding("example-hash").to(MyExamplePasswordEncryptor.class);
+    passwordEncryptorMapBinder.addBinding("custom-md5").to(CustomMD5SaltedEncryptor.class);
   }
 }
