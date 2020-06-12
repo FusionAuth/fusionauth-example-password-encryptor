@@ -17,7 +17,8 @@ package com.mycompany.fusionauth.plugins.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
-import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedEncryptor;
+import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedPasswordEncryptor;
+import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA1PasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleSaltedSHA512PasswordEncryptor;
 import com.mycompany.fusionauth.plugins.MyExamplePasswordEncryptor;
 import io.fusionauth.plugin.spi.PluginModule;
@@ -36,8 +37,15 @@ public class MyFusionAuthPluginModule extends AbstractModule {
     //   1. Add one or more bindings here
     //   2. Name your binding. This will be the value you set in the 'encryptionScheme' on the user to utilize this encryptor.
     //   3. Delete any example code you don't use.
+
+    // Start with this example and implement it.
     passwordEncryptorMapBinder.addBinding("example-hash").to(MyExamplePasswordEncryptor.class);
-    passwordEncryptorMapBinder.addBinding("example-custom-md5").to(ExampleCustomMD5SaltedEncryptor.class);
+
+    // Functional examples
+    passwordEncryptorMapBinder.addBinding("example-custom-md5").to(ExampleCustomMD5SaltedPasswordEncryptor.class);
     passwordEncryptorMapBinder.addBinding("example-salted-sha512").to(ExampleSaltedSHA512PasswordEncryptor.class);
+    // /atg/dynamo/security/PBKDF2PasswordHasher-10000
+    passwordEncryptorMapBinder.addBinding("example-salted-pbkdf2-hmac-sha1-10000").to(ExamplePBDKF2HMACSHA1PasswordEncryptor.class);
+
   }
 }

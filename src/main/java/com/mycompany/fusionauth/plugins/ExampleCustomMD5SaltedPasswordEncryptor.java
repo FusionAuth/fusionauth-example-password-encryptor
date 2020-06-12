@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.mycompany.fusionauth.util.HexTools;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
@@ -35,9 +36,7 @@ import io.fusionauth.plugin.spi.security.PasswordEncryptor;
  *
  * @author Daniel DeGroff
  */
-public class ExampleCustomMD5SaltedEncryptor implements PasswordEncryptor {
-  private final static char[] HEX = "0123456789ABCDEF".toCharArray();
-
+public class ExampleCustomMD5SaltedPasswordEncryptor implements PasswordEncryptor {
   @Override
   public int defaultFactor() {
     return 1;
@@ -61,17 +60,7 @@ public class ExampleCustomMD5SaltedEncryptor implements PasswordEncryptor {
       digest = messageDigest.digest(digest);
     }
 
-    return hex(digest);
-  }
-
-  private String hex(byte[] bytes) {
-    char[] hexChars = new char[bytes.length * 2];
-    for (int i = 0; i < bytes.length; i++) {
-      int v = bytes[i] & 0xFF;
-      hexChars[i * 2] = HEX[v >>> 4];
-      hexChars[i * 2 + 1] = HEX[v & 0x0F];
-    }
-    return new String(hexChars);
+    return HexTools.encode(digest);
   }
 }
 
