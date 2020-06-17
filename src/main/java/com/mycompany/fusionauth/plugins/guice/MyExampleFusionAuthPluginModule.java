@@ -28,7 +28,7 @@ import io.fusionauth.plugin.spi.security.PasswordEncryptor;
  * @author Daniel DeGroff
  */
 @PluginModule
-public class MyFusionAuthPluginModule extends AbstractModule {
+public class MyExampleFusionAuthPluginModule extends AbstractModule {
   @Override
   protected void configure() {
     MapBinder<String, PasswordEncryptor> passwordEncryptorMapBinder = MapBinder.newMapBinder(binder(), String.class, PasswordEncryptor.class);
@@ -36,7 +36,7 @@ public class MyFusionAuthPluginModule extends AbstractModule {
     // TODO :
     //   1. Add one or more bindings here
     //   2. Name your binding. This will be the value you set in the 'encryptionScheme' on the user to utilize this encryptor.
-    //   3. Delete any example code you don't use.
+    //   3. Delete any example code you don't use and do not want in your plugin.
 
     // Start with this example and implement it.
     passwordEncryptorMapBinder.addBinding("example-hash").to(MyExamplePasswordEncryptor.class);
