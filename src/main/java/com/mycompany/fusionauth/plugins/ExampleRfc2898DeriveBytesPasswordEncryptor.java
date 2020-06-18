@@ -26,7 +26,13 @@ import java.util.Base64;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
- * Java impl of Rfc2898DeriveBytes
+ * Example Java impl of Rfc2898DeriveBytes
+ *
+ * <p>
+ * This code is provided to assist in your deployment and management of FusionAuth. Use of this
+ * software is not covered under the FusionAuth license agreement and is provided "as is" without
+ * warranty. https://fusionauth.io/license
+ * </p>
  *
  * @author Daniel DeGroff
  * @see <a href="https://github.com/aspnet/AspNetIdentity/blob/master/src/Microsoft.AspNet.Identity.Core/Crypto.cs#L26"> https://github.com/aspnet/AspNetIdentity/blob/master/src/Microsoft.AspNet.Identity.Core/Crypto.cs#L26 </a>

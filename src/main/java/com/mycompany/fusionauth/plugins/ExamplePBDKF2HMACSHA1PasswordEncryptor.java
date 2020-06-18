@@ -30,6 +30,14 @@ import com.mycompany.fusionauth.util.HexTools;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
+ *  This is an example of a PBKDF2 HMAC SHA1 Salted hashing algorithm.
+ *
+ * <p>
+ * This code is provided to assist in your deployment and management of FusionAuth. Use of this
+ * software is not covered under the FusionAuth license agreement and is provided "as is" without
+ * warranty. https://fusionauth.io/license
+ * </p>
+ *
  * @author Daniel DeGroff
  */
 public class ExamplePBDKF2HMACSHA1PasswordEncryptor implements PasswordEncryptor {
