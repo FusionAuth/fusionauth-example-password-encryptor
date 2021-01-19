@@ -23,21 +23,24 @@ import java.util.Base64;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
- * This is an example of a SHA-512 salted hashing algorithm.
- *
- * <pre>{@code
- *   hash = password.getBytes() + base64Decode(salt)
- * }</pre>
+ * This is an example of a LDAP SHA-512 salted hashing algorithm.
  *
  * <p>
  * This code is provided to assist in your deployment and management of FusionAuth. Use of this
  * software is not covered under the FusionAuth license agreement and is provided "as is" without
  * warranty. https://fusionauth.io/license
  * </p>
+ * <p>
+ * Notes:
+ * LDAP algorithm to generate the userPassword value:
+ * > Base64Encode(SHA1(password+salt)+salt)
+ * <p>
+ * Resource: https://tools.ietf.org/id/draft-stroeder-hashed-userpassword-values-01.html
+ * https://github.com/FusionAuth/fusionauth-example-password-encryptor/issues/2
  *
  * @author Ahmed Abbas
  */
-public class ExampleSaltedSHA512PasswordEncryptor implements PasswordEncryptor {
+public class ExampleLDAPSaltedSHA512PasswordEncryptor implements PasswordEncryptor {
   @Override
   public int defaultFactor() {
     return 1;
