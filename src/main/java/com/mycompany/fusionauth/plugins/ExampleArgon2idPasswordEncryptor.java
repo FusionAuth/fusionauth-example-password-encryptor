@@ -22,7 +22,6 @@ import java.util.Base64;
 import de.mkammerer.argon2.Argon2Advanced;
 import de.mkammerer.argon2.Argon2Factory;
 
-import com.mycompany.fusionauth.util.HexTools;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 
