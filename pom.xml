@@ -69,11 +69,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>de.mkammerer</groupId>
-      <artifactId>argon2-jvm</artifactId>
-      <version>2.9.1</version>
-    </dependency>
-    <dependency>
       <groupId>io.fusionauth</groupId>
       <artifactId>fusionauth-plugin-api</artifactId>
       <version>1.15.8</version>
@@ -84,6 +79,22 @@
       <artifactId>testng</artifactId>
       <version>6.14.3</version>
       <scope>test</scope>
+    </dependency>
+    <!-- Required for the Argon2 Plugin.
+          argon-jvm
+            |__ argon2-jvm-nolibs
+    -->
+    <dependency>
+      <groupId>de.mkammerer</groupId>
+      <artifactId>argon2-jvm</artifactId>
+      <version>2.9.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.mkammerer</groupId>
+      <artifactId>argon2-jvm-nolibs</artifactId>
+      <version>2.9.1</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 
