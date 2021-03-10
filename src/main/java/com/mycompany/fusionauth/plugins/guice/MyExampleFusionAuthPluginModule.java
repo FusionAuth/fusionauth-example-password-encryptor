@@ -17,6 +17,7 @@ package com.mycompany.fusionauth.plugins.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
+import com.mycompany.fusionauth.plugins.ExampleArgon2idPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA1PasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleRfc2898DeriveBytesPasswordEncryptor;
@@ -52,5 +53,9 @@ public class MyExampleFusionAuthPluginModule extends AbstractModule {
     // Rfc2898DeriveBytes
     // https://github.com/aspnet/AspNetIdentity/blob/master/src/Microsoft.AspNet.Identity.Core/Crypto.cs#L26
     passwordEncryptorMapBinder.addBinding("example-Rfc2898DeriveBytes").to(ExampleRfc2898DeriveBytesPasswordEncryptor.class);
+
+    // Argon2id
+    // https://github.com/P-H-C/phc-winner-argon2
+    passwordEncryptorMapBinder.addBinding("example-argon2id").to(ExampleArgon2idPasswordEncryptor.class);
   }
 }
