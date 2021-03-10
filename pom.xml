@@ -69,6 +69,11 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>de.mkammerer</groupId>
+      <artifactId>argon2-jvm</artifactId>
+      <version>2.9.1</version>
+    </dependency>
+    <dependency>
       <groupId>io.fusionauth</groupId>
       <artifactId>fusionauth-plugin-api</artifactId>
       <version>1.15.8</version>
