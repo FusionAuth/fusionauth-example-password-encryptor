@@ -35,11 +35,6 @@ public class MyExampleFusionAuthPBKDF2PluginModule extends AbstractModule {
   protected void configure() {
     MapBinder<String, PasswordEncryptor> passwordEncryptorMapBinder = MapBinder.newMapBinder(binder(), String.class, PasswordEncryptor.class);
 
-    // TODO :
-    //   1. Add one or more bindings here
-    //   2. Name your binding. This will be the value you set in the 'encryptionScheme' on the user to utilize this encryptor.
-    //   3. Delete any example code you don't use and do not want in your plugin.
-
     passwordEncryptorMapBinder.addBinding("example-salted-pbkdf2-hmac-sha1-10000").to(ExamplePBDKF2HMACSHA1PasswordEncryptor.class);
   }
 }
