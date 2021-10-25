@@ -57,5 +57,8 @@ public class MyExampleFusionAuthPluginModule extends AbstractModule {
     // Argon2id
     // https://github.com/P-H-C/phc-winner-argon2
     passwordEncryptorMapBinder.addBinding("example-argon2id").to(ExampleArgon2idPasswordEncryptor.class);
+
+    // PBDKF2HMACSHA256 with Keylength 512, useful for keycloak
+    passwordEncryptorMapBinder.addBinding("example-keycloak").to(ExamplePBDKF2HMACSHA256Keylength512PasswordHasher.class);
   }
 }
