@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.fusionauth</groupId>
-  <artifactId>fusionauth-example-password-encryptor</artifactId>
+  <artifactId>fusionauth-example-keycloak-password-hasher</artifactId>
   <version>0.1.0</version>
   <packaging>jar</packaging>
 
@@ -103,9 +103,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <skipTests>true</skipTests>
-        </configuration>
       </plugin>
     </plugins>
   </build>
