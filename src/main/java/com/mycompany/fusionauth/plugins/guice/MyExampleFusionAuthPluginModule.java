@@ -22,6 +22,7 @@ import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA1PasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleRfc2898DeriveBytesPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleSaltedSHA512PasswordEncryptor;
+import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA256Keylength512PasswordHasher;
 import com.mycompany.fusionauth.plugins.MyExamplePasswordEncryptor;
 import io.fusionauth.plugin.spi.PluginModule;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
