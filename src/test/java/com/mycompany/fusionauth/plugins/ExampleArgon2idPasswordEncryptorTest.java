@@ -17,43 +17,35 @@ package com.mycompany.fusionauth.plugins;
 
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
  * @author Matthew Hartstonge
  */
 public class ExampleArgon2idPasswordEncryptorTest {
-    @Test
-    public void encrypt() {
-        // Test control input and output to ensure the hash is correct.
+    @Test(dataProvider = "hashes")
+    public void encrypt(String password, String salt, int factor, String expected) {
         PasswordEncryptor encryptor = new ExampleArgon2idPasswordEncryptor();
-        String result = encryptor.encrypt("password", "4MTVxbvk8swI0ys2Lf4saeR3swRvn0f2", 1);
-        Assert.assertEquals(result, new String(Base64.getEncoder().encode("$argon2id$v=19$m=65536,t=1,p=1$4MTVxbvk8swI0ys2Lf4saeR3swRvn0f2$RM2FCk53pEw2en0JWtoIqWu3c9xJvhb/7GRx8KkX9kU".getBytes())));
+        String actual = encryptor.encrypt(password, b64Encode(salt), factor);
+        Assert.assertEquals(actual, expected);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void Should_ThrowException_When_TimeCostLessThan1() {
-        ExampleArgon2idPasswordEncryptor encryptor = new ExampleArgon2idPasswordEncryptor();
-        encryptor.setTimeCost(0);
+    @DataProvider(name = "hashes")
+    public Object[][] hashes() {
+        return new Object[][]{
+                {"password123", "saltysalt", 1, "$argon2id$v=19$m=65536,t=1,p=4$c2FsdHlzYWx0$4FnTpZaINA9WWoTmhm1Y5BNP0ueQGQWWPIARybMRN64"},
+                {"password123", "saltysalt", 2, "$argon2id$v=19$m=65536,t=2,p=4$c2FsdHlzYWx0$BmD1EnGoAaDtGRiQ4nlW+pGIvHIHT+tW1F8xaWdxDQE"},
+                {"password123", "2qUAZD49DpdiOnxQqRHddpBg0Rfb36NM4ZPSDTLCz6cM2MWQx0", 3, "$argon2id$v=19$m=65536,t=3,p=4$MnFVQVpENDlEcGRpT254UXFSSGRkcEJnMFJmYjM2Tk00WlBTRFRMQ3o2Y00yTVdReDA$WFpsLuNnmVrfVO3TRw5p6mtvv3ryDbNzyHzY/CN8/ow"},
+                {"password123", "2TR5SPOtQBW62Y1Ju6brUBmd1HlPyfOrGlakmvTUFC5q3JvT1e", 3, "$argon2id$v=19$m=65536,t=3,p=4$MlRSNVNQT3RRQlc2MlkxSnU2YnJVQm1kMUhsUHlmT3JHbGFrbXZUVUZDNXEzSnZUMWU$5P4NBHMf3gSsBbiQc2PVPDUiGNPAT4YWEwOTHwk3aCA"},
+                {"password321", "2TR5SPOtQBW62Y1Ju6brUBmd1HlPyfOrGlakmvTUFC5q3JvT1e", 3, "$argon2id$v=19$m=65536,t=3,p=4$MlRSNVNQT3RRQlc2MlkxSnU2YnJVQm1kMUhsUHlmT3JHbGFrbXZUVUZDNXEzSnZUMWU$ZGS+lgDik0LcF2T5m9p7+8OhoH5oztUuo4Po4hruK5w"},
+        };
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void Should_ThrowException_When_MemoryLessThan1() {
-        ExampleArgon2idPasswordEncryptor encryptor = new ExampleArgon2idPasswordEncryptor();
-        encryptor.setMemoryCost(0);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void Should_ThrowException_When_MemoryGreaterThan16_777_215Kibibytes() {
-        ExampleArgon2idPasswordEncryptor encryptor = new ExampleArgon2idPasswordEncryptor();
-        encryptor.setMemoryCost(16384);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void Should_ThrowException_When_ParallelismLessThan1() {
-        ExampleArgon2idPasswordEncryptor encryptor = new ExampleArgon2idPasswordEncryptor();
-        encryptor.setParallelism(0);
+    private String b64Encode(String in) {
+        return new String(Base64.getEncoder().encode(in.getBytes(StandardCharsets.UTF_8)));
     }
 }

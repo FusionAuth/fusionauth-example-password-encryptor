@@ -68,6 +68,15 @@
       <version>4.2.3</version>
       <scope>compile</scope>
     </dependency>
+    <!-- Required for the Argon2 Plugin.
+      https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
+    -->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15on</artifactId>
+      <version>1.69</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>io.fusionauth</groupId>
       <artifactId>fusionauth-plugin-api</artifactId>
@@ -79,22 +88,6 @@
       <artifactId>testng</artifactId>
       <version>6.14.3</version>
       <scope>test</scope>
-    </dependency>
-    <!-- Required for the Argon2 Plugin.
-          argon-jvm
-            |__ argon2-jvm-nolibs
-    -->
-    <dependency>
-      <groupId>de.mkammerer</groupId>
-      <artifactId>argon2-jvm</artifactId>
-      <version>2.9.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>de.mkammerer</groupId>
-      <artifactId>argon2-jvm-nolibs</artifactId>
-      <version>2.9.1</version>
-      <scope>compile</scope>
     </dependency>
   </dependencies>
 

@@ -14,10 +14,7 @@ project(group: "io.fusionauth", name: "fusionauth-example-password-encryptor", v
       dependency(id: "com.google.inject:guice:4.2.3")
       dependency(id: "com.google.inject.extensions:guice-multibindings:4.2.3")
       // Required for the Argon2 Plugin.
-      // argon-jvm
-      //    \__ argon2-jvm-nolibs
-      dependency(id: "de.mkammerer:argon2-jvm:2.9.1")
-      dependency(id: "de.mkammerer:argon2-jvm-nolibs:2.9.1")
+      dependency(id: "org.bouncycastle:bcprov-jdk15on:1.69")
     }
     group(name: "provided") {
       dependency(id: "io.fusionauth:fusionauth-plugin-api:1.15.8")
