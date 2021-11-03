@@ -18,16 +18,34 @@ package com.mycompany.fusionauth.plugins;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import static org.testng.AssertJUnit.assertEquals;
 
 /**
  * @author Daniel DeGroff
  */
-public class ExampleCustomMD5SaltedEncryptorTest {
+public class ExamplePHPMD5SaltedPasswordEncryptorTest {
+  private static final String Base64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
   @Test
   public void encrypt() {
     // Test control input and output to ensure the hash is correct.
-    PasswordEncryptor encryptor = new ExampleCustomMD5SaltedPasswordEncryptor();
-    String result = encryptor.encrypt("password", "4MTVxbvk8swI0ys2Lf4saeR3swRvn0f2", 1);
-    Assert.assertEquals(result, "e0198a696980741ec49e2c56615fbc98".toUpperCase());
+    PasswordEncryptor encryptor = new ExamplePHPMD5SaltedPasswordEncryptor();
+    String hash = "$P$9IQRaTwmfeRo7ud9Fh4E2PdI0S3r.L0";
+
+    // Assert factor calculation is correct
+    int factor = 1 << Base64.indexOf(hash.charAt(3));
+    assertEquals(2048, factor);
+
+    // Assert the password extracted correctly
+    String password = hash.substring(12);
+    assertEquals("eRo7ud9Fh4E2PdI0S3r.L0", password);
+
+    // Assert the salt extracted correctly
+    String salt = hash.substring(4, 12);
+    assertEquals("IQRaTwmf", salt);
+
+    // Assert the calculated hash
+    String result = encryptor.encrypt("test12345", salt, factor);
+    Assert.assertEquals(result, password);
   }
 }

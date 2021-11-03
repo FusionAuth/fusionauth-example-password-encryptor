@@ -20,9 +20,10 @@ import com.google.inject.multibindings.MapBinder;
 import com.mycompany.fusionauth.plugins.ExampleArgon2idPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA1PasswordEncryptor;
+import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA256Keylength512PasswordHasher;
+import com.mycompany.fusionauth.plugins.ExamplePHPMD5SaltedPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleRfc2898DeriveBytesPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleSaltedSHA512PasswordEncryptor;
-import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA256Keylength512PasswordHasher;
 import com.mycompany.fusionauth.plugins.MyExamplePasswordEncryptor;
 import io.fusionauth.plugin.spi.PluginModule;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
@@ -47,6 +48,9 @@ public class MyExampleFusionAuthPluginModule extends AbstractModule {
     // Functional examples
     passwordEncryptorMapBinder.addBinding("example-custom-md5").to(ExampleCustomMD5SaltedPasswordEncryptor.class);
     passwordEncryptorMapBinder.addBinding("example-salted-sha512").to(ExampleSaltedSHA512PasswordEncryptor.class);
+
+    // Example of PHP using MD5
+    passwordEncryptorMapBinder.addBinding("example-php-md5").to(ExamplePHPMD5SaltedPasswordEncryptor.class);
 
     // /atg/dynamo/security/PBKDF2PasswordHasher-10000
     passwordEncryptorMapBinder.addBinding("example-salted-pbkdf2-hmac-sha1-10000").to(ExamplePBDKF2HMACSHA1PasswordEncryptor.class);
