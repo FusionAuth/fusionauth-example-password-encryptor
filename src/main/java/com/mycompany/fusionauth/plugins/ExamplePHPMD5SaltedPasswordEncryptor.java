@@ -23,7 +23,7 @@ import java.util.Arrays;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
- * This is an example of a MD5 Salted hashing algorithm.
+ * This is an example of a PHP MD5 Salted hashing algorithm.
  *
  * <pre>{@code
  * hash = (salt + password).getBytes()
@@ -38,7 +38,7 @@ import io.fusionauth.plugin.spi.security.PasswordEncryptor;
  * @author Daniel DeGroff
  */
 public class ExamplePHPMD5SaltedPasswordEncryptor implements PasswordEncryptor {
-  private static final char BASE_64_TABLE[] = {
+  private static final char[] BASE_64_TABLE = {
       '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
       'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -65,21 +65,23 @@ public class ExamplePHPMD5SaltedPasswordEncryptor implements PasswordEncryptor {
       throw new IllegalArgumentException("No such algorithm [MD5]");
     }
 
-    byte[] pass = password.getBytes(StandardCharsets.UTF_8);
-    byte[] hash = messageDigest.digest((salt + password).getBytes(StandardCharsets.UTF_8));
-    do {
-      byte[] t = new byte[hash.length + pass.length];
-      System.arraycopy(hash, 0, t, 0, hash.length);
-      System.arraycopy(pass, 0, t, hash.length, pass.length);
-      hash = messageDigest.digest(t);
-    } while (--factor > 0);
+    byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
+    byte[] result = messageDigest.digest((salt + password).getBytes(StandardCharsets.UTF_8));
 
-    return encode64Test(hash, 16);
+    for (int i = 0; i < factor; i++) {
+      byte[] tmp = new byte[result.length + passwordBytes.length];
+      System.arraycopy(result, 0, tmp, 0, result.length);
+      System.arraycopy(passwordBytes, 0, tmp, result.length, passwordBytes.length);
+
+      result = messageDigest.digest(tmp);
+    }
+
+    return base64Encode(result, 16);
   }
 
-  private String encode64Test(byte[] src, int count) {
+  private String base64Encode(byte[] src, int count) {
     int i, value;
-    String output = "";
+    StringBuilder sb = new StringBuilder();
     i = 0;
 
     if (src.length < count) {
@@ -92,24 +94,25 @@ public class ExamplePHPMD5SaltedPasswordEncryptor implements PasswordEncryptor {
     do {
       value = src[i] + (src[i] < 0 ? 256 : 0);
       ++i;
-      output += BASE_64_TABLE[value & 63];
+      sb.append(BASE_64_TABLE[value & 63]);
       if (i < count) {
         value |= (src[i] + (src[i] < 0 ? 256 : 0)) << 8;
       }
-      output += BASE_64_TABLE[(value >> 6) & 63];
+      sb.append(BASE_64_TABLE[(value >> 6) & 63]);
       if (i++ >= count) {
         break;
       }
       if (i < count) {
         value |= (src[i] + (src[i] < 0 ? 256 : 0)) << 16;
       }
-      output += BASE_64_TABLE[(value >> 12) & 63];
+      sb.append(BASE_64_TABLE[(value >> 12) & 63]);
       if (i++ >= count) {
         break;
       }
-      output += BASE_64_TABLE[((value >> 18) & 63)];
+      sb.append(BASE_64_TABLE[((value >> 18) & 63)]);
     } while (i < count);
-    return output;
+
+    return sb.toString();
   }
 }
 
