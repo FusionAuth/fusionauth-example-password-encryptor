@@ -23,7 +23,7 @@ import java.util.Arrays;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
- * This is an example of a PHP MD5 Salted hashing algorithm.
+ * This is an example of a Portal PHP Password hashing algorithm.
  *
  * <pre>{@code
  * hash = (salt + password).getBytes()

@@ -49,8 +49,8 @@ public class MyExampleFusionAuthPluginModule extends AbstractModule {
     passwordEncryptorMapBinder.addBinding("example-custom-md5").to(ExampleCustomMD5SaltedPasswordEncryptor.class);
     passwordEncryptorMapBinder.addBinding("example-salted-sha512").to(ExampleSaltedSHA512PasswordEncryptor.class);
 
-    // Example of PHP using MD5
-    passwordEncryptorMapBinder.addBinding("example-php-md5").to(ExamplePHPMD5SaltedPasswordEncryptor.class);
+    // Example of a PHP MD5 Salted Password hasher. This is the MD5 implementation from the Portal PHP Password hashing framework. (phpass)
+    passwordEncryptorMapBinder.addBinding("example-phpass-md5").to(ExamplePHPMD5SaltedPasswordEncryptor.class);
 
     // /atg/dynamo/security/PBKDF2PasswordHasher-10000
     passwordEncryptorMapBinder.addBinding("example-salted-pbkdf2-hmac-sha1-10000").to(ExamplePBDKF2HMACSHA1PasswordEncryptor.class);
