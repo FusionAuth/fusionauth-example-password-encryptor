@@ -18,8 +18,8 @@ package com.mycompany.fusionauth.plugins;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
+import com.mycompany.fusionauth.util.Base64Tools;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
@@ -38,14 +38,6 @@ import io.fusionauth.plugin.spi.security.PasswordEncryptor;
  * @author Daniel DeGroff
  */
 public class ExamplePHPMD5SaltedPasswordEncryptor implements PasswordEncryptor {
-  private static final char[] BASE_64_TABLE = {
-      '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-      'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-      'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-      'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-      'w', 'x', 'y', 'z'
-  };
 
   @Override
   public int defaultFactor() {
@@ -76,43 +68,7 @@ public class ExamplePHPMD5SaltedPasswordEncryptor implements PasswordEncryptor {
       result = messageDigest.digest(tmp);
     }
 
-    return base64Encode(result, 16);
-  }
-
-  private String base64Encode(byte[] src, int count) {
-    int i, value;
-    StringBuilder sb = new StringBuilder();
-    i = 0;
-
-    if (src.length < count) {
-      byte[] t = new byte[count];
-      System.arraycopy(src, 0, t, 0, src.length);
-      Arrays.fill(t, src.length, count - 1, (byte) 0);
-      src = t;
-    }
-
-    do {
-      value = src[i] + (src[i] < 0 ? 256 : 0);
-      ++i;
-      sb.append(BASE_64_TABLE[value & 63]);
-      if (i < count) {
-        value |= (src[i] + (src[i] < 0 ? 256 : 0)) << 8;
-      }
-      sb.append(BASE_64_TABLE[(value >> 6) & 63]);
-      if (i++ >= count) {
-        break;
-      }
-      if (i < count) {
-        value |= (src[i] + (src[i] < 0 ? 256 : 0)) << 16;
-      }
-      sb.append(BASE_64_TABLE[(value >> 12) & 63]);
-      if (i++ >= count) {
-        break;
-      }
-      sb.append(BASE_64_TABLE[((value >> 18) & 63)]);
-    } while (i < count);
-
-    return sb.toString();
+    return Base64Tools.unixCryptEncodeToString(result, 16);
   }
 }
 
