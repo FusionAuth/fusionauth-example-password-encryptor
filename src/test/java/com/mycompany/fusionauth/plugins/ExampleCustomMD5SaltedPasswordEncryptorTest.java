@@ -28,6 +28,6 @@ public class ExampleCustomMD5SaltedPasswordEncryptorTest {
     // Test control input and output to ensure the hash is correct.
     PasswordEncryptor encryptor = new ExampleCustomMD5SaltedPasswordEncryptor();
     String result = encryptor.encrypt("password", "4MTVxbvk8swI0ys2Lf4saeR3swRvn0f2", 1);
-    Assert.assertEquals(result, "e0198a696980741ec49e2c56615fbc98".toUpperCase());
+    Assert.assertEquals(result, "4BmKaWmAdB7EnixWYV+8mA==");
   }
 }

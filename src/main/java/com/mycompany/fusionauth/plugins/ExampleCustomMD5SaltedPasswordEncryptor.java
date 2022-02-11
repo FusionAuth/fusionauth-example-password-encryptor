@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.mycompany.fusionauth.util.HexTools;
+import java.util.Base64;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
@@ -61,7 +61,7 @@ public class ExampleCustomMD5SaltedPasswordEncryptor implements PasswordEncrypto
       digest = messageDigest.digest(digest);
     }
 
-    return HexTools.encode(digest);
+    return new String(Base64.getEncoder().encode(digest));
   }
 }
 
