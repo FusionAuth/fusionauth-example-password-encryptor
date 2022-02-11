@@ -30,3 +30,7 @@ $ tar xvfz savant-1.0.0.tar.gz
 $ ln -s ./savant-1.0.0 current
 $ export PATH=$PATH:~/savant/current/bin/
 ```
+
+## TODO
+
+Move all except one example to the fusionauth-contrib repository.
