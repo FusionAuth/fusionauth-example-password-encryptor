@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, FusionAuth, All Rights Reserved
+ * Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,6 @@ package com.mycompany.fusionauth.plugins;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
@@ -29,7 +26,7 @@ import java.util.Base64;
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 
 /**
- *  This is an example of a PBKDF2 HMAC SHA256 Salted hashing algorithm with a key length of 512. This is the default hashing algorithm for Keycloak.
+ * This is an example of a PBKDF2 HMAC SHA256 Salted hashing algorithm with a key length of 512. This is the default hashing algorithm for Keycloak.
  *
  * <p>
  * This code is provided to assist in your deployment and management of FusionAuth. Use of this
@@ -39,8 +36,7 @@ import io.fusionauth.plugin.spi.security.PasswordEncryptor;
  *
  * @author Dan Moore
  */
-public class ExamplePBDKF2HMACSHA256Keylength512PasswordHasher implements PasswordEncryptor {
-
+public class ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher implements PasswordEncryptor {
   @Override
   public int defaultFactor() {
     return 10_000;
@@ -70,4 +66,9 @@ public class ExamplePBDKF2HMACSHA256Keylength512PasswordHasher implements Passwo
     byte[] encoded = secret.getEncoded();
     return new String(Base64.getEncoder().encode(encoded));
   }
+
+//  @Override
+//  public String pluginDisplayName() {
+//    return "Super Awesome KeyCloak PBKDF2 512 Algorithm";
+//  }
 }

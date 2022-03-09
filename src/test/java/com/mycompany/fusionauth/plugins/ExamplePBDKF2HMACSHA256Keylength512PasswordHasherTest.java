@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, FusionAuth, All Rights Reserved
+ * Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import static org.testng.Assert.assertEquals;
 public class ExamplePBDKF2HMACSHA256Keylength512PasswordHasherTest {
   @Test(dataProvider = "hashes")
   public void encrypt(String password, String salt, String hash) {
-    ExamplePBDKF2HMACSHA256Keylength512PasswordHasher encryptor = new ExamplePBDKF2HMACSHA256Keylength512PasswordHasher();
+    ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher encryptor = new ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher();
     assertEquals(encryptor.encrypt(password, salt, 27500), hash);
   }
 
