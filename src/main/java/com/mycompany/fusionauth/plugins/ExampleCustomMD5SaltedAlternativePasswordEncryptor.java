@@ -38,39 +38,38 @@ import java.util.Base64;
  * @author Daniel DeGroff
  */
 public class ExampleCustomMD5SaltedAlternativePasswordEncryptor implements PasswordEncryptor {
-  @Override
-  public int defaultFactor() {
-    return 1;
-  }
-
-  @Override
-  public String encrypt(String password, String salt, int factor) {
-    if (factor <= 0) {
-      throw new IllegalArgumentException("Invalid factor value [" + factor + "]");
+    @Override
+    public int defaultFactor() {
+        return 1;
     }
 
-    MessageDigest messageDigest;
-    try {
-      messageDigest = MessageDigest.getInstance("MD5");
-    } catch (NoSuchAlgorithmException e) {
-      throw new IllegalArgumentException("No such algorithm [MD5]");
+    @Override
+    public String encrypt(String password, String salt, int factor) {
+        if (factor <= 0) {
+            throw new IllegalArgumentException("Invalid factor value [" + factor + "]");
+        }
+
+        MessageDigest messageDigest;
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException("No such algorithm [MD5]");
+        }
+
+        byte[] decodedSalt = Base64.getDecoder().decode(salt.getBytes(StandardCharsets.UTF_8));
+        byte[] digest = this.join(password.getBytes(StandardCharsets.UTF_8), decodedSalt);
+
+        for (int i = 0; i < factor; i++) {
+            digest = messageDigest.digest(digest);
+        }
+        byte[] copy = this.join(digest, decodedSalt);
+        return new String(Base64.getEncoder().encode(copy));
     }
 
-    byte[] decodedSalt = Base64.getDecoder().decode(salt.getBytes(StandardCharsets.UTF_8));
-    byte[] digest = this.join(password.getBytes(StandardCharsets.UTF_8), decodedSalt);
-
-    for (int i = 0; i < factor; i++) {
-      digest = messageDigest.digest(digest);
+    public byte[] join(byte[] first, byte[] second) {
+        byte[] joined = new byte[first.length + second.length];
+        System.arraycopy(first, 0, joined, 0, first.length);
+        System.arraycopy(second, 0, joined, first.length, second.length);
+        return joined;
     }
-    byte[] copy = this.join(digest, decodedSalt);
-    return new String(Base64.getEncoder().encode(copy));
-  }
-
-  public byte[] join(byte[] first, byte[] second) {
-    byte[] joined = new byte[first.length + second.length];
-    System.arraycopy(first, 0, joined, 0, first.length);
-    System.arraycopy(second, 0, joined, first.length, second.length);
-    return joined;
-  }
-
 }
