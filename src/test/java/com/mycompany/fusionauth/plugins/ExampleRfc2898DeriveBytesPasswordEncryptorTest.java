@@ -2,6 +2,7 @@ package com.mycompany.fusionauth.plugins;
 
 import java.util.Base64;
 
+import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
@@ -25,7 +26,7 @@ public class ExampleRfc2898DeriveBytesPasswordEncryptorTest {
     String encodedSalt = Base64.getEncoder().encodeToString(salt);
     String encodedHash = Base64.getEncoder().encodeToString(subKey);
 
-    ExampleRfc2898DeriveBytesPasswordEncryptor encryptor = new ExampleRfc2898DeriveBytesPasswordEncryptor();
+    PasswordEncryptor encryptor = new ExampleRfc2898DeriveBytesPasswordEncryptor();
     assertEquals(encryptor.encrypt(password, encodedSalt, 1_000), encodedHash);
   }
 

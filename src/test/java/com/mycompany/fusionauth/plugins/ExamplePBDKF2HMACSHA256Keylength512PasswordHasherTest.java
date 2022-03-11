@@ -1,5 +1,6 @@
 package com.mycompany.fusionauth.plugins;
 
+import io.fusionauth.plugin.spi.security.PasswordEncryptor;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
@@ -10,7 +11,7 @@ import static org.testng.Assert.assertEquals;
 public class ExamplePBDKF2HMACSHA256Keylength512PasswordHasherTest {
   @Test(dataProvider = "hashes")
   public void encrypt(String password, String salt, String hash) {
-    ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher encryptor = new ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher();
+    PasswordEncryptor encryptor = new ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher();
     assertEquals(encryptor.encrypt(password, salt, 27500), hash);
   }
 
