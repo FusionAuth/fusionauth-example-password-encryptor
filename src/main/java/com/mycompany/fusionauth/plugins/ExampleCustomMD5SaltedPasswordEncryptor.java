@@ -26,7 +26,7 @@ import io.fusionauth.plugin.spi.security.PasswordEncryptor;
  * This is an example of a MD5 Salted hashing algorithm.
  *
  * <pre>{@code
- * hash = (salt + password).getBytes()
+ * hash = (salt + password)
  * }</pre>
  *
  * <p>
