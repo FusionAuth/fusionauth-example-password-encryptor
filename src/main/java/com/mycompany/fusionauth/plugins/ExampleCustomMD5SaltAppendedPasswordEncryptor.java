@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2020, FusionAuth, All Rights Reserved
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific
- * language governing permissions and limitations under the License.
- */
 package com.mycompany.fusionauth.plugins;
 
 import io.fusionauth.plugin.spi.security.PasswordEncryptor;
@@ -23,10 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 /**
- * This is an example of a MD5 Salted hashing algorithm.
+ * This is an example of a MD5 Salted hashing algorithm with the salt appended.
  *
  * <pre>{@code
- * hash = (password.getBytes + salt.getBytes)
+ * hash = md5(password + salt) + salt
  * }</pre>
  *
  * <p>
@@ -35,9 +20,9 @@ import java.util.Base64;
  * warranty. https://fusionauth.io/license
  * </p>
  *
- * @author Daniel DeGroff
+ * @author Joshua OBannon
  */
-public class ExampleCustomMD5SaltedAlternativePasswordEncryptor implements PasswordEncryptor {
+public class ExampleCustomMD5SaltAppendedPasswordEncryptor implements PasswordEncryptor {
     @Override
     public int defaultFactor() {
         return 1;
@@ -49,6 +34,7 @@ public class ExampleCustomMD5SaltedAlternativePasswordEncryptor implements Passw
             throw new IllegalArgumentException("Invalid factor value [" + factor + "]");
         }
 
+        // Instantiate a messageDigest, and make it of type MD5.  This object will be used to do the actual hashing (messageDigest.digest(digest)) below
         MessageDigest messageDigest;
         try {
             messageDigest = MessageDigest.getInstance("MD5");
@@ -56,13 +42,21 @@ public class ExampleCustomMD5SaltedAlternativePasswordEncryptor implements Passw
             throw new IllegalArgumentException("No such algorithm [MD5]");
         }
 
+        // Decode the base64 encoded salt passed into this `encrypt` method.
         byte[] decodedSalt = Base64.getDecoder().decode(salt.getBytes(StandardCharsets.UTF_8));
-        byte[] digest = this.join(password.getBytes(StandardCharsets.UTF_8), decodedSalt);
 
+        // Join the password and salt
+        byte[] digest = join(password.getBytes(StandardCharsets.UTF_8), decodedSalt);
+
+        // Hash the digest (password and salt) based on the factor provided
         for (int i = 0; i < factor; i++) {
             digest = messageDigest.digest(digest);
         }
-        byte[] copy = this.join(digest, decodedSalt);
+
+        // Join ( digest[pw + salt] ) + ( salt )
+        byte[] copy = join(digest, decodedSalt);
+
+        // Now we encode it (base64) and return it.
         return new String(Base64.getEncoder().encode(copy));
     }
 
