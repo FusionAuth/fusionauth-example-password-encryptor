@@ -18,6 +18,7 @@ package com.mycompany.fusionauth.plugins.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedPasswordEncryptor;
+import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltAppendedPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA1PasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher;
 import com.mycompany.fusionauth.plugins.ExamplePHPMD5SaltedPasswordEncryptor;
@@ -48,6 +49,7 @@ public class MyExampleFusionAuthPluginModule extends AbstractModule {
     // Below are Functional examples
     //
     passwordEncryptorMapBinder.addBinding("example-custom-md5").to(ExampleCustomMD5SaltedPasswordEncryptor.class);
+    passwordEncryptorMapBinder.addBinding("example-salt-appended-md5").to(ExampleCustomMD5SaltAppendedPasswordEncryptor.class);
     passwordEncryptorMapBinder.addBinding("example-salted-sha512").to(ExampleSaltedSHA512PasswordEncryptor.class);
 
     // Example of a PHP MD5 Salted Password hasher. This is the MD5 implementation from the Portal PHP Password hashing framework. (phpass)
