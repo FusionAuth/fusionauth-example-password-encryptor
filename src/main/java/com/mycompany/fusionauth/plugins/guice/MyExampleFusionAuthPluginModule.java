@@ -17,8 +17,8 @@ package com.mycompany.fusionauth.plugins.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
-import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltAppendedPasswordEncryptor;
+import com.mycompany.fusionauth.plugins.ExampleCustomMD5SaltedPasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA1PasswordEncryptor;
 import com.mycompany.fusionauth.plugins.ExamplePBDKF2HMACSHA256KeyLength512PasswordHasher;
 import com.mycompany.fusionauth.plugins.ExamplePHPMD5SaltedPasswordEncryptor;
@@ -40,7 +40,7 @@ public class MyExampleFusionAuthPluginModule extends AbstractModule {
     // TODO :
     //   1. Add one or more bindings here
     //   2. Name your binding. This will be the value you set in the 'encryptionScheme' on the user to utilize this encryptor.
-    //   3. Delete any example code you don't use and do not want in your plugin. You can delete not just the bindings here, but the java classes corresponding to them.
+    //   3. Delete any example code you don't use and do not want in your plugin. In addition to the bindings, you should delete any corresponding classes and tests you do not use in your plugin.
 
     // Start with this example and implement it.
     passwordEncryptorMapBinder.addBinding("example-hash").to(MyExamplePasswordEncryptor.class);
