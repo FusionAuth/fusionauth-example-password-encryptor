@@ -26,6 +26,49 @@ public class Base64Tools {
   };
 
   /**
+   * Encode a byte array using bcrypt's slightly-modified base64 encoding scheme. Note that this is *not* compatible
+   * with the standard MIME-base64 encoding.
+   *
+   * <p>
+   * Uses: . / A-Z a-z 0-9
+   * </p>
+   *
+   * @param bytes the byte array to encode
+   * @param len   the number of bytes to encode
+   * @return base64-encoded string
+   * @throws IllegalArgumentException if the length is invalid
+   */
+  public static String bcryptEncodeBase64(byte[] bytes, int len) throws IllegalArgumentException {
+    int index = 0;
+    StringBuilder build = new StringBuilder();
+    while (index < len) {
+      int character1 = bytes[index++] & 0xff;
+      build.append(BCRYPT_BASE_64_TABLE[(character1 >> 2) & 0x3f]);
+      character1 = (character1 & 0x03) << 4;
+      if (index >= len) {
+        build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
+        break;
+      }
+
+      int character2 = bytes[index++] & 0xff;
+      character1 |= (character2 >> 4) & 0x0f;
+      build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
+      character1 = (character2 & 0x0f) << 2;
+      if (index >= len) {
+        build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
+        break;
+      }
+
+      character2 = bytes[index++] & 0xff;
+      character1 |= (character2 >> 6) & 0x03;
+      build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
+      build.append(BCRYPT_BASE_64_TABLE[character2 & 0x3f]);
+    }
+
+    return build.toString();
+  }
+
+  /**
    * Return a Base64 encoded string using the character set defined in RFC4648.
    * <p>
    * Uses: A-Z a-z 0-9 + /
@@ -64,49 +107,6 @@ public class Base64Tools {
    */
   public static String urlEncodeToString(byte[] bytes) {
     return Base64.getUrlEncoder().encodeToString(bytes);
-  }
-
-  /**
-   * Encode a byte array using bcrypt's slightly-modified base64 encoding scheme. Note that this is *not* compatible
-   * with the standard MIME-base64 encoding.
-   *
-   * <p>
-   * Uses: . / A-Z a-z 0-9
-   * </p>
-   *
-   * @param bytes the byte array to encode
-   * @param len   the number of bytes to encode
-   * @return base64-encoded string
-   * @throws IllegalArgumentException if the length is invalid
-   */
-  private static String bcryptEncodeBase64(byte[] bytes, int len) throws IllegalArgumentException {
-    int index = 0;
-    StringBuilder build = new StringBuilder();
-    while (index < len) {
-      int character1 = bytes[index++] & 0xff;
-      build.append(BCRYPT_BASE_64_TABLE[(character1 >> 2) & 0x3f]);
-      character1 = (character1 & 0x03) << 4;
-      if (index >= len) {
-        build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
-        break;
-      }
-
-      int character2 = bytes[index++] & 0xff;
-      character1 |= (character2 >> 4) & 0x0f;
-      build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
-      character1 = (character2 & 0x0f) << 2;
-      if (index >= len) {
-        build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
-        break;
-      }
-
-      character2 = bytes[index++] & 0xff;
-      character1 |= (character2 >> 6) & 0x03;
-      build.append(BCRYPT_BASE_64_TABLE[character1 & 0x3f]);
-      build.append(BCRYPT_BASE_64_TABLE[character2 & 0x3f]);
-    }
-
-    return build.toString();
   }
 
   private static String unixBase64Encode(byte[] src, int len) {
