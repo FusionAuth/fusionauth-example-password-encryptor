@@ -1,12 +1,17 @@
-## Example Password Encryptor 
+## Example Password Hasher 
 
-If you need to write a custom encryptor to import users into FusionAuth, you may use this example build. This is intended to be used with the Writing a Plugin guide provided in the FusionAuth documentation. 
+If you need to write a custom hasher (also known as a password encryptor) to import users into FusionAuth, you may use this example build. This is intended to be used with the Writing a Plugin guide provided in the FusionAuth documentation. 
 
 Writing a Plugin guide is found here:  https://fusionauth.io/docs/v1/tech/plugins/writing-a-plugin
 
 ### Example code
 
-Any example password encryptors provided in this repository is provided to assist in your deployment and management of FusionAuth. Use of this software is not covered under the FusionAuth license agreement and is provided "as is" without warranty. https://fusionauth.io/license
+Any example password hashers provided in this repository is provided to assist in your deployment and management of FusionAuth.
+ Use of this software is not covered under the FusionAuth license agreement and is provided "as is" without warranty. https://fusionauth.io/license
+
+More sample password hashers for various algorithms can be found in the [fusionauth-contrib](https://github.com/FusionAuth/fusionauth-contrib/tree/master/Password%20Hashing%20Plugins) repository.
+
+If there's a password hasher you'd like to see that isn't available, please [open a GitHub issue](https://github.com/fusionauth/fusionauth-issues/issues).
 
 ### Building
 
@@ -31,6 +36,3 @@ $ ln -s ./savant-1.0.0 current
 $ export PATH=$PATH:~/savant/current/bin/
 ```
 
-## TODO
-
-Move all except one example to the fusionauth-contrib repository.
